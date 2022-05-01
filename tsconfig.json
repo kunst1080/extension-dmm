@@ -2,10 +2,10 @@
   "compilerOptions": {
     "strict": true,
     "sourceMap": true,
-    "target": "ES5",
-    "module": "ES2015",
+    "target": "es2022",
+    "module": "es2022",
     "moduleResolution": "node",
-    "lib": ["ES2021", "DOM"],
+    "lib": ["dom", "dom.iterable"],
     "jsx": "react"
   },
   "include": ["./src/**/*"]

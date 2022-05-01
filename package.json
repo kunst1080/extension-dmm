@@ -6,7 +6,7 @@
   "scripts": {
     "clean-dependencies": "rd /s /q node_modules && del yarn.lock",
     "build": "webpack --mode production",
-    "watch": "webpack -w"
+    "dev": "webpack --mode production -w"
   },
   "devDependencies": {
     "@types/chrome": "^0.0.183",
@@ -19,6 +19,7 @@
     "webpack-cli": "^4.9.2"
   },
   "dependencies": {
+    "axios": "^0.27.2",
     "react": "^18.1.0",
     "react-dom": "^18.1.0"
   }

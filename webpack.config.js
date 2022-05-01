@@ -1,8 +1,11 @@
 const CopyPlugin = require("copy-webpack-plugin");
 
 module.exports = {
+  resolve: {
+    extensions: [".js", ".ts", ".tsx"],
+  },
   entry: {
-    content: "./src/content.tsx",
+    book: "./src/book/main.ts",
     background: "./src/background.ts",
   },
   module: {

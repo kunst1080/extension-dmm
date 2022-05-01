@@ -16,5 +16,6 @@ const Main = () => {
 };
 
 const app = document.createElement("div");
-document.getElementById("main-bmk")?.prepend(app);
+app.className = "d-lcol";
+document.querySelector("#main-bmk > div > div > div:last-child")?.append(app);
 ReactDOM.render(<Main />, app);
