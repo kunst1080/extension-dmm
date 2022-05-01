@@ -12,10 +12,6 @@ module.exports = {
           from: "./src/manifest.json",
           to: "manifest.json",
         },
-        {
-          from: "./src/popup.html",
-          to: "popup.html",
-        },
       ],
     }),
   ],

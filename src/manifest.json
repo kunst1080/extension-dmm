@@ -3,8 +3,7 @@
   "name": "DMM Extension",
   "version": "0.0.1",
   "action": {
-    "default_title": "DMM Extension",
-    "default_popup": "popup.html"
+    "default_title": "DMM Extension"
   },
   "description": "DMMお気に入りページの拡張"
 }
