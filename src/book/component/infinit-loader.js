@@ -8,3 +8,6 @@ const hrefs = new Set(
   })
 );
 console.log(hrefs);
+
+const app = document.createElement("div");
+document.querySelector("#main-bmk > div > div > div:last-child")?.append(app);
