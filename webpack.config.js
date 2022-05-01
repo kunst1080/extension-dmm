@@ -2,8 +2,16 @@ const CopyPlugin = require("copy-webpack-plugin");
 
 module.exports = {
   entry: {
-    "content-script": "./src/content.tsx",
+    content: "./src/content.tsx",
     background: "./src/background.ts",
+  },
+  module: {
+    rules: [
+      {
+        test: /\.tsx?$/,
+        use: "ts-loader",
+      },
+    ],
   },
   plugins: [
     new CopyPlugin({

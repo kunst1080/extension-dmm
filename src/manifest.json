@@ -2,8 +2,17 @@
   "manifest_version": 3,
   "name": "DMM Extension",
   "version": "0.0.1",
+  "description": "DMMお気に入りページの拡張",
   "action": {
     "default_title": "DMM Extension"
   },
-  "description": "DMMお気に入りページの拡張"
+  "content_scripts": [
+    {
+      "matches": ["https://book.dmm.co.jp/bookmark/*"],
+      "js": ["content.js"]
+    }
+  ],
+  "background": {
+    "service_worker": "background.js"
+  }
 }
