@@ -15,11 +15,11 @@ export const Item = (props: Book) => {
             <label className="checkarea">
                 <input
                     type="checkbox"
-                    // name="item_info[]"
-                    // value="xxxxxxxx.Abook"
-                    // param-item-id="xxxxxxxx"
-                    // param-price="1100"
-                    // id="dmm"
+                    name="item_info[]"
+                    value={`${props.id}.Abook`}
+                    param-item-id={`${props.id}`}
+                    param-price={`${props.price}`}
+                    id="dmm"
                 />
             </label>
             <p className="status">
