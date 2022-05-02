@@ -27,7 +27,7 @@ export const useFilter = (books: Book[]): UseFilter => {
             <input
                 type="text"
                 value={filterTitle}
-                placeholder="タイトル抽出"
+                placeholder="タイトル"
                 onChange={(e) => setFilterTitle(e.target.value)}
             />
             <label htmlFor="discount" style={{ marginLeft: "10px" }}>
