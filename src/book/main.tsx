@@ -3,16 +3,17 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { Book, convertFromNode } from "./Book";
 
-import { Filter } from "./component/Filter";
+import { useFilter } from "./component/Filter";
 import { Item } from "./component/Item";
 
 const Main = (props: { books: Book[] }) => {
+    const [filteredBooks, renderFilter] = useFilter(props.books);
     return (
         <div>
-            <Filter />
+            {renderFilter()}
             <div className="d-item">
                 <ul id="list">
-                    {props.books.map((book) => {
+                    {filteredBooks.map((book) => {
                         return (
                             <li style={{ width: "178px" }}>
                                 <Item {...book} />
@@ -22,7 +23,6 @@ const Main = (props: { books: Book[] }) => {
                 </ul>
             </div>
         </div>
-        // </div>
     );
 };
 
