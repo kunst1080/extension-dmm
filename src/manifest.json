@@ -11,8 +11,5 @@
       "matches": ["https://book.dmm.co.jp/bookmark/*"],
       "js": ["book.js"]
     }
-  ],
-  "background": {
-    "service_worker": "background.js"
-  }
+  ]
 }

@@ -6,7 +6,6 @@ module.exports = {
   },
   entry: {
     book: "./src/book/main.tsx",
-    background: "./src/background.ts",
   },
   module: {
     rules: [
