@@ -8,7 +8,7 @@ const formatPrice = (price: number) =>
         currency: "JPY",
     }).format(price);
 
-export const Item = (props: Book) => {
+export const ItemComponent = (props: Book) => {
     const formattedPrice = formatPrice(props.price);
     return (
         <div>

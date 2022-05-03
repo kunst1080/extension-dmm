@@ -1,24 +1,25 @@
 import * as React from "react";
-import { Book } from "../Book";
 
-type UseFilter = [Book[], () => JSX.Element];
+export type Filter = {
+    title: string;
+    discount: boolean;
+    cachback: boolean;
+};
 
-export const useFilter = (books: Book[]): UseFilter => {
-    const [filteredBooks, setBooks] = React.useState<Book[]>(books);
+export const FilterComponnet = (props: {
+    onUpdate: (filter: Filter) => void;
+}) => {
     const [filterTitle, setFilterTitle] = React.useState("");
     const [filterDiscount, setFilterDiscount] = React.useState(false);
     const [filterCachback, setFilterCachback] = React.useState(false);
     React.useEffect(() => {
-        console.log("run filter");
-        console.log(filterTitle);
-        setBooks(
-            books
-                .filter((b) => b.title.includes(filterTitle))
-                .filter((b) => !filterDiscount || b.txtOff != null)
-                .filter((b) => !filterCachback || b.isCashback)
-        );
+        props.onUpdate({
+            title: filterTitle,
+            discount: filterDiscount,
+            cachback: filterCachback,
+        });
     }, [filterTitle, filterDiscount, filterCachback]);
-    const render = () => (
+    return (
         <div
             className="d-boxcaptside d-boxpagenation"
             style={{ fontSize: "12px" }}
@@ -50,5 +51,4 @@ export const useFilter = (books: Book[]): UseFilter => {
             </label>
         </div>
     );
-    return [filteredBooks, render];
 };
