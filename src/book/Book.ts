@@ -1,4 +1,5 @@
 export type Book = {
+  ref: HTMLElement;
   id: string;
   url: string;
   imageUrl: string;
@@ -13,8 +14,9 @@ export type Book = {
   txtOff?: string;
 };
 
-export const convertFromNode = (e: Element): Book => {
+export const nodeToBook = (e: Element): Book => {
   return {
+    ref: e as HTMLElement,
     id: (e.querySelector(".img > img") as HTMLImageElement).src.split("/")[5],
     url: (e.querySelector("p.tmb > a") as HTMLAnchorElement).href,
     imageUrl: (e.querySelector(".img > img") as HTMLImageElement).src,

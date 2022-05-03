@@ -20,10 +20,7 @@ export const FilterComponnet = (props: {
         });
     }, [filterTitle, filterDiscount, filterCachback]);
     return (
-        <div
-            className="d-boxcaptside d-boxpagenation"
-            style={{ fontSize: "12px" }}
-        >
+        <div style={{ fontSize: "12px" }}>
             抽出
             <input
                 type="text"

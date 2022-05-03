@@ -11,5 +11,6 @@
       "matches": ["https://book.dmm.co.jp/bookmark/*"],
       "js": ["book.js"]
     }
-  ]
+  ],
+  "permissions": ["storage"]
 }
