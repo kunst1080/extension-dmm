@@ -8,9 +8,15 @@
   },
   "content_scripts": [
     {
-      "matches": ["https://book.dmm.co.jp/bookmark/*"],
+      "matches": [
+        "https://book.dmm.co.jp/bookmark/*",
+        "https://book.dmm.com/bookmark/*"
+      ],
       "js": ["book.js"]
     }
   ],
-  "permissions": ["storage"]
+  "permissions": ["storage"],
+  "background": {
+    "service_worker": "background.js"
+  }
 }

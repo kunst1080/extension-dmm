@@ -5,6 +5,7 @@ module.exports = {
     extensions: [".js", ".ts", ".tsx"],
   },
   entry: {
+    background: "./src/background.ts",
     book: "./src/book/main.tsx",
   },
   module: {
