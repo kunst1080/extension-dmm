@@ -3,7 +3,7 @@ import * as React from "react";
 import { Book } from "../Book";
 import { FetchHTMLResponse } from "../../Message";
 
-const CACHE_EXPIRE_MILLIS = 60 * 60 * 8 * 1000;
+const CACHE_EXPIRE_MILLIS = 60 * 60 * 24 * 7 * 1000; // 1 week
 
 type CashbackDetail = {
     point: number;
