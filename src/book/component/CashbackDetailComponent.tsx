@@ -2,6 +2,7 @@ import * as React from "react";
 
 import { Book } from "../Book";
 import { FetchHTMLResponse } from "../../Message";
+import { CSSProperties } from "react";
 
 const CACHE_EXPIRE_MILLIS = 60 * 60 * 24 * 7 * 1000; // 1 week
 
@@ -65,6 +66,24 @@ const fetchData = (url: string): Promise<CashbackDetail> => {
     });
 };
 
+const normalStyle: CSSProperties = {
+    fontSize: "12px",
+    border: "1px solid #d90000",
+    borderRadius: "4px",
+    boxSizing: "border-box",
+    padding: "4px 0",
+    fontWeight: "bold",
+    color: "#d90000",
+    textAlign: "center",
+    lineHeight: 1,
+    margin: "4px 0",
+};
+const superStyle: CSSProperties = {
+    ...normalStyle,
+    backgroundColor: "#d90000",
+    color: "#fff",
+};
+
 export const CashbackDetailComponent = (props: Book) => {
     const [data, setData] = React.useState<CashbackDetail | null>(null);
     React.useEffect(() => {
@@ -73,19 +92,7 @@ export const CashbackDetailComponent = (props: Book) => {
     if (data == null) return <div>Loading...</div>;
     return (
         <div>
-            <div
-                style={{
-                    fontSize: "12px",
-                    border: "1px solid #d90000",
-                    boxSizing: "border-box",
-                    padding: "4px 0",
-                    fontWeight: "bold",
-                    color: "#d90000",
-                    textAlign: "center",
-                    lineHeight: 1,
-                    margin: "4px 0",
-                }}
-            >
+            <div style={data.rate >= 50 ? superStyle : normalStyle}>
                 {data.rate} %還元
             </div>
             <div style={{ fontSize: "12px" }}>{data.point} ポイント付与</div>
