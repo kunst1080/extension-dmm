@@ -15,6 +15,7 @@ const handleFilter = (filter: Filter) => {
                 ?.getAttribute("alt") || "";
         const isHidden =
             (filter.tanwa && title.includes("単話")) ||
+            (filter.tanwa && title.includes("【マイクロ】")) ||
             (filter.gentei && title.includes("限定"));
         li.hidden = isHidden;
     });
