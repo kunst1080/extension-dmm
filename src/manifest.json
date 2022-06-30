@@ -13,6 +13,10 @@
         "https://book.dmm.com/bookmark/*"
       ],
       "js": ["book.js"]
+    },
+    {
+      "matches": ["https://book.dmm.com/list/*"],
+      "js": ["search.js"]
     }
   ],
   "permissions": ["storage"],

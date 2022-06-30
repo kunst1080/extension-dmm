@@ -7,6 +7,7 @@ module.exports = {
   entry: {
     background: "./src/background.ts",
     book: "./src/book/main.tsx",
+    search: "./src/search/main.tsx",
   },
   module: {
     rules: [
