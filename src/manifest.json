@@ -15,7 +15,10 @@
       "js": ["book.js"]
     },
     {
-      "matches": ["https://book.dmm.com/list/*"],
+      "matches": [
+        "https://book.dmm.com/list/*",
+        "https://book.dmm.com/search/*"
+      ],
       "js": ["search.js"]
     }
   ],
