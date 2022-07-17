@@ -12,14 +12,16 @@
         "https://book.dmm.co.jp/bookmark/*",
         "https://book.dmm.com/bookmark/*"
       ],
-      "js": ["book.js"]
+      "js": ["book.js"],
+      "css": ["style.css"]
     },
     {
       "matches": [
         "https://book.dmm.com/list/*",
         "https://book.dmm.com/search/*"
       ],
-      "js": ["search.js"]
+      "js": ["search.js"],
+      "css": ["style.css"]
     }
   ],
   "permissions": ["storage"],

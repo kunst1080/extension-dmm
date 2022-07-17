@@ -1,41 +1,24 @@
 import * as React from "react";
 
-export type Filter = {
-    tanwa: boolean;
-    gentei: boolean;
-};
-
 export const FilterComponnet = (props: {
-    onUpdate: (filter: Filter) => void;
+    children: string;
+    defaultValue: boolean;
+    onUpdate: (checked: boolean) => void;
 }) => {
-    const [filterTanwa, setFilterTanwa] = React.useState(true);
-    const [filterGentei, setFilterGentei] = React.useState(true);
+    const id = React.useId();
+    const [checked, setChecked] = React.useState(props.defaultValue);
     React.useEffect(() => {
-        props.onUpdate({
-            tanwa: filterTanwa,
-            gentei: filterGentei,
-        });
-    }, [filterTanwa, filterGentei]);
+        props.onUpdate(checked);
+    });
     return (
-        <div style={{ fontSize: "12px" }}>
-            <label htmlFor="tanwa" style={{ marginLeft: "10px" }}>
-                <input
-                    id="tanwa"
-                    type="checkbox"
-                    checked={filterTanwa}
-                    onChange={(e) => setFilterTanwa(e.target.checked)}
-                />
-                単話を非表示
-            </label>
-            <label htmlFor="gentei" style={{ marginLeft: "10px" }}>
-                <input
-                    id="gentei"
-                    type="checkbox"
-                    checked={filterGentei}
-                    onChange={(e) => setFilterGentei(e.target.checked)}
-                />
-                限定を非表示
-            </label>
-        </div>
+        <label htmlFor={id} style={{ marginLeft: "10px" }}>
+            <input
+                id={id}
+                type="checkbox"
+                checked={checked}
+                onChange={(e) => setChecked(e.target.checked)}
+            />
+            {props.children}
+        </label>
     );
 };
