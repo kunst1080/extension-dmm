@@ -3,13 +3,12 @@ import * as ReactDOM from "react-dom";
 
 import { FilterComponnet } from "./FilterComponent";
 
-const allItems = document.querySelectorAll("#fn-list > li");
+const allItems = document.querySelectorAll<HTMLElement>("#fn-list > li");
 
 // Filter
 const handleFilter =
     (keywords: string[], className: string) => (checked: boolean) => {
-        allItems.forEach((b) => {
-            const li = b as HTMLElement;
+        allItems.forEach((li) => {
             const title =
                 li
                     .querySelector(".m-boxListBookProductTmb img")
