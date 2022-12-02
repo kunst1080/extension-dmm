@@ -33,7 +33,7 @@ ReactDOM.render(
             単話をマスク
         </FilterComponnet>
         <FilterComponnet
-            defaultValue={true}
+            defaultValue={false}
             onUpdate={handleFilter(["限定"], "filter-gentei")}
         >
             限定をマスク
