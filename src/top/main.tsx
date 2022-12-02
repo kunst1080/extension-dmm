@@ -7,7 +7,6 @@ const click = (e: HTMLElement | null) => {
     }
 }
 window.onload = () => {
-    console.log("----- onload");
     const columns = document.querySelectorAll<HTMLElement>("main > div[direction=column] > section[class]");
     columns.forEach((c) => {
         const ul = c.querySelector<HTMLElement>("ul[data-is-wide]");
@@ -21,5 +20,4 @@ window.onload = () => {
             ul.querySelectorAll<HTMLElement>("span.indicator").forEach((e) => e.remove());
         }
     });
-    console.log("----- end");
 }
