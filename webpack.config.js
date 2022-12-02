@@ -6,8 +6,9 @@ module.exports = {
   },
   entry: {
     background: "./src/background.ts",
-    book: "./src/book/main.tsx",
+    bookmark: "./src/bookmark/main.tsx",
     search: "./src/search/main.tsx",
+    top: "./src/top/main.tsx",
   },
   module: {
     rules: [
@@ -25,8 +26,16 @@ module.exports = {
           to: "manifest.json",
         },
         {
-          from: "./src/style.css",
-          to: "style.css",
+          from: "./src/bookmark/style.css",
+          to: "bookmark.css",
+        },
+        {
+          from: "./src/search/style.css",
+          to: "search.css",
+        },
+        {
+          from: "./src/top/style.css",
+          to: "top.css",
         },
       ],
     }),

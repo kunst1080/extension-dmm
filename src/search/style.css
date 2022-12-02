@@ -1,0 +1,7 @@
+#w, #l-contentsForListPage, #l-contentsForListPage ul {
+    width: 100% !important;
+}
+.filter-tanwa,
+.filter-gentei {
+    background-color: grey;
+}

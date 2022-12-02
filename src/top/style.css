@@ -1,0 +1,6 @@
+.body, .content-container {
+    width: 100% !important;
+}
+ul[data-is-wide] {
+    flex-wrap: wrap;
+}

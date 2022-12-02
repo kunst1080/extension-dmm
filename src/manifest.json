@@ -9,19 +9,29 @@
   "content_scripts": [
     {
       "matches": [
-        "https://book.dmm.co.jp/bookmark/*",
-        "https://book.dmm.com/bookmark/*"
+        "https://book.dmm.co.jp/",
+        "https://book.dmm.com/"
       ],
-      "js": ["book.js"],
-      "css": ["style.css"]
+      "js": ["top.js"],
+      "css": ["top.css"]
     },
     {
       "matches": [
+        "https://book.dmm.co.jp/bookmark/*",
+        "https://book.dmm.com/bookmark/*"
+      ],
+      "js": ["bookmark.js"],
+      "css": ["bookmark.css"]
+    },
+    {
+      "matches": [
+        "https://book.dmm.co.jp/list/*",
+        "https://book.dmm.co.jp/search/*",
         "https://book.dmm.com/list/*",
         "https://book.dmm.com/search/*"
       ],
       "js": ["search.js"],
-      "css": ["style.css"]
+      "css": ["search.css"]
     }
   ],
   "permissions": ["storage"],
