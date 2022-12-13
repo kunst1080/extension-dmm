@@ -1,4 +1,6 @@
-#w, #l-contentsForListPage, #l-contentsForListPage ul {
+#w,
+#l-contentsForListPage,
+.m-boxListBookProduct2 {
     width: 100% !important;
 }
 .filter-tanwa,
