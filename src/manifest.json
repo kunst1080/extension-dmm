@@ -8,10 +8,7 @@
   },
   "content_scripts": [
     {
-      "matches": [
-        "https://book.dmm.co.jp/",
-        "https://book.dmm.com/"
-      ],
+      "matches": ["https://book.dmm.co.jp/", "https://book.dmm.com/"],
       "js": ["top.js"],
       "css": ["top.css"]
     },
@@ -22,6 +19,14 @@
       ],
       "js": ["bookmark.js"],
       "css": ["bookmark.css"]
+    },
+    {
+      "matches": [
+        "https://book.dmm.co.jp/product/*",
+        "https://book.dmm.com/product/*"
+      ],
+      "js": ["product.js"],
+      "css": ["product.css"]
     },
     {
       "matches": [

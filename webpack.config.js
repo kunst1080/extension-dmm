@@ -8,6 +8,7 @@ module.exports = {
     background: "./src/background.ts",
     bookmark: "./src/bookmark/main.tsx",
     search: "./src/search/main.tsx",
+    product: "./src/product/main.tsx",
     top: "./src/top/main.tsx",
   },
   module: {
@@ -32,6 +33,10 @@ module.exports = {
         {
           from: "./src/search/style.css",
           to: "search.css",
+        },
+        {
+          from: "./src/product/style.css",
+          to: "product.css",
         },
         {
           from: "./src/top/style.css",
