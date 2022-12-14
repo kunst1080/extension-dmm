@@ -132,7 +132,6 @@ const BuyComponent = (props: { contentId: string }) => {
 export const BookComponnet = (props: Props) => {
     const book = props.book;
     const point = book.sell.campaign_detail.campaign.point;
-    console.log(point.end);
     return (
         <div
             data-is-read={book.is_read}
