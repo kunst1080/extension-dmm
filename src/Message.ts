@@ -7,6 +7,6 @@ export type FetchMesage = {
   url: string;
 };
 
-export type FetchHTMLResponse = {
-  html: string;
+export type FetchResponse = {
+  body: string;
 };

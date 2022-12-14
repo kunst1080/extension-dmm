@@ -1,10 +1,10 @@
-import { FetchMesage, FetchHTMLResponse, Message } from "./Message";
+import { FetchMesage, FetchResponse, Message } from "./Message";
 
 chrome.runtime.onMessage.addListener(
   (
     message: Message | FetchMesage,
     sender: any,
-    callback: (response: FetchHTMLResponse) => void
+    callback: (response: FetchResponse) => void
   ) => {
     if (message.type == "fetch") {
       doFetch(message, callback);
@@ -15,14 +15,14 @@ chrome.runtime.onMessage.addListener(
 
 const doFetch = (
   message: FetchMesage,
-  callback: (response: FetchHTMLResponse) => void
+  callback: (response: FetchResponse) => void
 ): void => {
   console.debug("fetch:" + message.url);
   fetch(message.url)
     .then((res) => res.text())
-    .then((html) => {
+    .then((body) => {
       callback({
-        html: html,
+        body: body,
       });
     });
 };

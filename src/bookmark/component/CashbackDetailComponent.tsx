@@ -1,7 +1,7 @@
 import * as React from "react";
 
 import { Book } from "../Book";
-import { FetchHTMLResponse } from "../../Message";
+import { FetchResponse } from "../../Message";
 import { CSSProperties } from "react";
 
 const CACHE_EXPIRE_MILLIS = 60 * 60 * 24 * 7 * 1000; // 1 week
@@ -35,9 +35,9 @@ const fetchData = (url: string): Promise<CashbackDetail> => {
                 type: "fetch",
                 url: url,
             },
-            (response: FetchHTMLResponse) => {
+            (response: FetchResponse) => {
                 const doc = new DOMParser().parseFromString(
-                    response.html,
+                    response.body,
                     "text/html"
                 );
                 const price = parseInt(
