@@ -158,19 +158,17 @@ export const BookComponnet = (props: Props) => {
                             className="css-1bqwxmy"
                             target="_blank"
                         >
-                            <div className="css-hqgwjp book-title">
-                                {book.title}
-                            </div>
+                            <div className="book-title">{book.title}</div>
                         </a>
                     </div>
                     {point && (
-                        <div data-color="red" className="css-zvxns">
+                        <div data-color="red" className="book-pint">
                             {`pt還元: ${point.rate}%
                             (${new Date(point.end).toLocaleString()}まで)`}
                         </div>
                     )}
-                    <div className="css-oxlek2">
-                        <span className="css-1bu28mj">
+                    <div>
+                        <span className="book-price">
                             {book.sell.fixed_price}円
                         </span>
                     </div>
