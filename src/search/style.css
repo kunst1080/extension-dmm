@@ -1,6 +1,7 @@
 #w,
 #l-contentsForListPage,
-.m-boxListBookProduct2 {
+.m-boxListBookProduct2,
+.l-areaListMain > ul.m-boxSearchBookProduct {
     width: 100% !important;
 }
 .filter-tanwa,
