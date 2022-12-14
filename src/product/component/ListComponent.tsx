@@ -6,14 +6,22 @@ import { BookComponnet } from "./BookComponent";
 type Props = {
     seriesId: string;
     json: SeriesJson;
+    hidePurchased: boolean;
 };
 
 export const ListComponent = (props: Props) => {
-    return (
-        <React.Fragment>
-            {props.json.volume_books.map((book) => (
-                <BookComponnet seriesId={props.seriesId} book={book} />
-            ))}
-        </React.Fragment>
+    const filteredBooks = props.json.volume_books.filter(
+        (book) => !props.hidePurchased || !book.purchased
     );
+    if (filteredBooks.length == 0) {
+        return <div className="books-empty">すべて購入済み</div>;
+    } else {
+        return (
+            <ul>
+                {filteredBooks.map((book) => (
+                    <BookComponnet seriesId={props.seriesId} book={book} />
+                ))}
+            </ul>
+        );
+    }
 };

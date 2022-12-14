@@ -13,14 +13,16 @@ export const FilterComponent = (props: Props) => {
         props.onUpdate(checked);
     });
     return (
-        <label htmlFor={id} style={{ marginLeft: "10px" }}>
-            <input
-                id={id}
-                type="checkbox"
-                checked={checked}
-                onChange={(e) => setChecked(e.target.checked)}
-            />
-            {props.children}
-        </label>
+        <div className="books-filter">
+            <label htmlFor={id}>
+                <input
+                    id={id}
+                    type="checkbox"
+                    checked={checked}
+                    onChange={(e) => setChecked(e.target.checked)}
+                />
+                {props.children}
+            </label>
+        </div>
     );
 };

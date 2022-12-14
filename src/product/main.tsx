@@ -1,10 +1,17 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 
-import { ListComponent } from "./component/ListComponent";
+import { MainComponent } from "./component/MainComponent";
+
 import { SeriesJson } from "./model/SeriesJson";
 
 const main = (root: HTMLElement) => {
+    const app = document.createElement("div");
+    app.className = "books-empty";
+    app.append("Loading...");
+    root.parentElement?.prepend(app);
+    root.remove();
+
     const seriesId = location.pathname.split("/")[2];
     fetch(
         `/ajax/bff/contents/?shop_name=general&series_id=${seriesId}&page=1&per_page=100&last_read_position=0&order=asc`
@@ -16,8 +23,8 @@ const main = (root: HTMLElement) => {
         })
         .then((json: SeriesJson) =>
             ReactDOM.render(
-                <ListComponent seriesId={seriesId} json={json} />,
-                root
+                <MainComponent seriesId={seriesId} json={json} />,
+                app
             )
         );
 };
