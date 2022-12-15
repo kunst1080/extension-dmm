@@ -5,6 +5,8 @@ import { MainComponent } from "./component/MainComponent";
 
 import { SeriesJson } from "./model/SeriesJson";
 
+const CACHE_EXPIRE_MILLIS = 60 * 60 * 24 * 1 * 1000; // 1 day
+
 const main = (root: HTMLElement) => {
     const app = document.createElement("div");
     app.className = "books-empty";
@@ -21,12 +23,13 @@ const main = (root: HTMLElement) => {
             console.debug(s);
             return s;
         })
-        .then((json: SeriesJson) =>
+        .then((json: SeriesJson) => {
+            app.className = "";
             ReactDOM.render(
                 <MainComponent seriesId={seriesId} json={json} />,
                 app
-            )
-        );
+            );
+        });
 };
 
 if (location.pathname.split("/")[3] !== "volumes") {
