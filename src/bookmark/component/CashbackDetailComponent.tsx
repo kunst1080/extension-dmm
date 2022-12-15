@@ -13,31 +13,30 @@ type CashbackDetail = {
     createdAt: number;
 };
 
-const fetchData = (url: string): Promise<CashbackDetail> => {
-    return xfetch(url).then((body: string) => {
-        const doc = new DOMParser().parseFromString(body, "text/html");
-        const price = parseInt(
-            (
-                doc.querySelector(
-                    ".m-boxSubDetailPurchase__price__value,.m-boxPurchaseChoice__price"
-                ) as HTMLElement
-            ).innerText.replace(",", "")
-        );
-        const point = parseInt(
-            (
-                doc.querySelector(
-                    ".m-boxMainDetailPurchase__areaPoint__item dd"
-                ) as HTMLElement
-            ).innerText
-        );
-        const rate = Math.trunc((100 * point) / (price / 1.1));
-        const cd = {
-            point: point,
-            rate: rate,
-            createdAt: Date.now(),
-        };
-        return cd;
-    });
+const fetchData = async (url: string): Promise<CashbackDetail> => {
+    const body = await xfetch(url);
+    const doc = new DOMParser().parseFromString(body, "text/html");
+    const price = parseInt(
+        (
+            doc.querySelector(
+                ".m-boxSubDetailPurchase__price__value,.m-boxPurchaseChoice__price"
+            ) as HTMLElement
+        ).innerText.replace(",", "")
+    );
+    const point = parseInt(
+        (
+            doc.querySelector(
+                ".m-boxMainDetailPurchase__areaPoint__item dd"
+            ) as HTMLElement
+        ).innerText
+    );
+    const rate = Math.trunc((100 * point) / (price / 1.1));
+    const cd = {
+        point: point,
+        rate: rate,
+        createdAt: Date.now(),
+    };
+    return cd;
 };
 
 const normalStyle: CSSProperties = {
