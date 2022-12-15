@@ -19,15 +19,18 @@ export const loadData = async <T>(
   expireMillis: number,
   loadFunction: Promise<T>
 ): Promise<T> => {
-  const c = await chrome.storage.local.get(id);
-  if (c[id] && Date.now() - c[id].createdAt < expireMillis) {
+  const c = await chrome.storage.local.get(id).then((c) => c[id]);
+  if (c && c.expire > Date.now()) {
     console.debug(`use cache: ${id}`);
-    return c[id] as T;
+    return c.data as T;
   }
   console.debug(`fetch data: ${id}`);
   const cd = await loadFunction;
   chrome.storage.local.set({
-    [id]: cd,
+    [id]: {
+      data: cd,
+      expire: Date.now() + expireMillis,
+    },
   });
   return cd;
 };

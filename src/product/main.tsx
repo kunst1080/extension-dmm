@@ -1,11 +1,21 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
+import { loadData } from "../utils";
 
 import { MainComponent } from "./component/MainComponent";
 
 import { SeriesJson } from "./model/SeriesJson";
 
 const CACHE_EXPIRE_MILLIS = 60 * 60 * 24 * 1 * 1000; // 1 day
+
+const fetchData = async (seriesId: string) => {
+    const r = await fetch(
+        `/ajax/bff/contents/?shop_name=general&series_id=${seriesId}&page=1&per_page=100&last_read_position=0&order=asc`
+    );
+    const s = await r.json();
+    console.debug(s);
+    return s;
+};
 
 const main = (root: HTMLElement) => {
     const app = document.createElement("div");
@@ -15,21 +25,15 @@ const main = (root: HTMLElement) => {
     root.remove();
 
     const seriesId = location.pathname.split("/")[2];
-    fetch(
-        `/ajax/bff/contents/?shop_name=general&series_id=${seriesId}&page=1&per_page=100&last_read_position=0&order=asc`
-    )
-        .then((r) => r.json())
-        .then((s) => {
-            console.debug(s);
-            return s;
-        })
-        .then((json: SeriesJson) => {
+    loadData(seriesId, CACHE_EXPIRE_MILLIS, fetchData(seriesId)).then(
+        (json: SeriesJson) => {
             app.className = "";
             ReactDOM.render(
                 <MainComponent seriesId={seriesId} json={json} />,
                 app
             );
-        });
+        }
+    );
 };
 
 if (location.pathname.split("/")[3] !== "volumes") {
