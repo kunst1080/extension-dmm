@@ -3,6 +3,7 @@ export type Book = {
   id: string;
   url: string;
   imageUrl: string;
+  apiUrl: string;
   title: string;
   shortTitle: string;
   isCashback: boolean;
@@ -17,11 +18,19 @@ export type Book = {
 export const nodeToBook = (e: Element): Book => {
   const href = (e.querySelector("p.tmb > a") as HTMLAnchorElement).href;
   const url = new URL(href).searchParams.get("url") || href;
+  const imageUrl = (e.querySelector(".img > img") as HTMLImageElement).src;
+  const id = imageUrl.split("/")[5];
+  const shopName =
+    new URL(url).hostname == "book.dmm.com" ? "general" : "adult";
+  const apiUrl = `${
+    new URL(url).origin
+  }/ajax/bff/content/?shop_name=${shopName}&content_id=${id}`;
   return {
     ref: e as HTMLElement,
-    id: (e.querySelector(".img > img") as HTMLImageElement).src.split("/")[5],
+    id: id,
     url: url,
-    imageUrl: (e.querySelector(".img > img") as HTMLImageElement).src,
+    imageUrl: imageUrl,
+    apiUrl: apiUrl,
     title: (e.querySelector(".img > img") as HTMLImageElement).alt,
     shortTitle: (e.getElementsByClassName("txt")[0] as HTMLElement).innerText,
     isCashback: e.getElementsByClassName("ico-st-cashback").length > 0,

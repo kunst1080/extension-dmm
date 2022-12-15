@@ -27,11 +27,11 @@ document
     ?.prepend(filterApp);
 ReactDOM.render(<FilterComponnet onUpdate={handleFilter} />, filterApp);
 
-// // CashbackDetail
-// allItems
-//     .filter((b) => b.isCashback)
-//     .forEach((b) => {
-//         const app = document.createElement("div");
-//         b.ref.firstElementChild?.appendChild(app);
-//         ReactDOM.render(<CashbackDetailComponent {...b} />, app);
-//     });
+// CashbackDetail
+allItems
+    .filter((b) => b.isCashback)
+    .forEach((b) => {
+        const app = document.createElement("div");
+        b.ref.firstElementChild?.appendChild(app);
+        ReactDOM.render(<CashbackDetailComponent {...b} />, app);
+    });

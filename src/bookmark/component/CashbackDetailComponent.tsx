@@ -15,22 +15,13 @@ type CashbackDetail = {
 
 const fetchData = async (url: string): Promise<CashbackDetail> => {
     const body = await xfetch(url);
-    const doc = new DOMParser().parseFromString(body, "text/html");
-    const price = parseInt(
-        (
-            doc.querySelector(
-                ".m-boxSubDetailPurchase__price__value,.m-boxPurchaseChoice__price"
-            ) as HTMLElement
-        ).innerText.replace(",", "")
-    );
-    const point = parseInt(
-        (
-            doc.querySelector(
-                ".m-boxMainDetailPurchase__areaPoint__item dd"
-            ) as HTMLElement
-        ).innerText
-    );
-    const rate = Math.trunc((100 * point) / (price / 1.1));
+    const json = JSON.parse(body);
+    const price = json.sell.campaign_price
+        ? json.sell.campaign_price
+        : json.sell.fixed_price;
+    const rate = json.sell.campaign_detail.campaign.point.rate;
+    const noTax = Math.trunc((price * 100) / 11 / 10);
+    const point = Math.trunc((noTax * rate) / 100);
     const cd = {
         point: point,
         rate: rate,
@@ -60,7 +51,7 @@ const superStyle: CSSProperties = {
 export const CashbackDetailComponent = (props: Book) => {
     const [data, setData] = React.useState<CashbackDetail | null>(null);
     React.useEffect(() => {
-        loadData(props.id, CACHE_EXPIRE_MILLIS, fetchData(props.url)).then(
+        loadData(props.id, CACHE_EXPIRE_MILLIS, fetchData(props.apiUrl)).then(
             (d) => setData(d)
         );
     }, []);
