@@ -1,7 +1,8 @@
 import * as React from "react";
 
+import { xfetch, loadData } from "../../utils";
+
 import { Book } from "../Book";
-import { FetchResponse } from "../../Message";
 import { CSSProperties } from "react";
 
 const CACHE_EXPIRE_MILLIS = 60 * 60 * 24 * 7 * 1000; // 1 week
@@ -12,57 +13,30 @@ type CashbackDetail = {
     createdAt: number;
 };
 
-const loadData = (id: string, url: string): Promise<CashbackDetail> => {
-    return chrome.storage.local.get(id).then((c) => {
-        if (c[id] && Date.now() - c[id].createdAt < CACHE_EXPIRE_MILLIS) {
-            console.debug(`use cache: ${id}`);
-            return c[id] as CashbackDetail;
-        }
-        console.debug(`fetch data: ${id}, ${url}`);
-        return fetchData(url).then((cd) => {
-            chrome.storage.local.set({
-                [id]: cd,
-            });
-            return cd;
-        });
-    });
-};
-
 const fetchData = (url: string): Promise<CashbackDetail> => {
-    return new Promise((resolve) => {
-        chrome.runtime.sendMessage(
-            {
-                type: "fetch",
-                url: url,
-            },
-            (response: FetchResponse) => {
-                const doc = new DOMParser().parseFromString(
-                    response.body,
-                    "text/html"
-                );
-                const price = parseInt(
-                    (
-                        doc.querySelector(
-                            ".m-boxSubDetailPurchase__price__value,.m-boxPurchaseChoice__price"
-                        ) as HTMLElement
-                    ).innerText.replace(",", "")
-                );
-                const point = parseInt(
-                    (
-                        doc.querySelector(
-                            ".m-boxMainDetailPurchase__areaPoint__item dd"
-                        ) as HTMLElement
-                    ).innerText
-                );
-                const rate = Math.trunc((100 * point) / (price / 1.1));
-                const cd = {
-                    point: point,
-                    rate: rate,
-                    createdAt: Date.now(),
-                };
-                resolve(cd);
-            }
+    return xfetch(url).then((body: string) => {
+        const doc = new DOMParser().parseFromString(body, "text/html");
+        const price = parseInt(
+            (
+                doc.querySelector(
+                    ".m-boxSubDetailPurchase__price__value,.m-boxPurchaseChoice__price"
+                ) as HTMLElement
+            ).innerText.replace(",", "")
         );
+        const point = parseInt(
+            (
+                doc.querySelector(
+                    ".m-boxMainDetailPurchase__areaPoint__item dd"
+                ) as HTMLElement
+            ).innerText
+        );
+        const rate = Math.trunc((100 * point) / (price / 1.1));
+        const cd = {
+            point: point,
+            rate: rate,
+            createdAt: Date.now(),
+        };
+        return cd;
     });
 };
 
@@ -87,7 +61,9 @@ const superStyle: CSSProperties = {
 export const CashbackDetailComponent = (props: Book) => {
     const [data, setData] = React.useState<CashbackDetail | null>(null);
     React.useEffect(() => {
-        loadData(props.id, props.url).then((d) => setData(d));
+        loadData(props.id, CACHE_EXPIRE_MILLIS, fetchData(props.url)).then(
+            (d) => setData(d)
+        );
     }, []);
     if (data == null) return <div>Loading...</div>;
     return (
