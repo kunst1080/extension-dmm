@@ -29,3 +29,6 @@
 .red_ {
     color: rgb(246, 56, 74);
 }
+.clicked {
+    background-color: #aeaeae !important;
+}

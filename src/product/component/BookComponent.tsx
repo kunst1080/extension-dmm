@@ -33,6 +33,56 @@ const badgeNew = (
     </div>
 );
 
+const AddToFavoriteComponent = (props: { contentId: string }) => {
+    const shopName = location.hostname == "book.dmm.com" ? "general" : "adult";
+
+    const [clicked, setClicked] = React.useState(false);
+    const handleClick = () => {
+        const data = {
+            item_id: props.contentId,
+            shop_name: shopName,
+        };
+        if (clicked) {
+            location.href = "/bookmark/";
+        } else {
+            fetch("/ajax/bookmark/add/", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json; charset=utf-8",
+                    "x-requested-with": "XMLHttpRequest",
+                },
+                body: JSON.stringify(data),
+            }).then((r) => setClicked(r.ok));
+        }
+    };
+    return (
+        <div className="css-133zdp5">
+            <button
+                onClick={handleClick}
+                data-size="small"
+                data-checked="false"
+                data-disabled="false"
+                className={`css-k7fmbg ${clicked ? "clicked" : ""}`}
+            >
+                <div data-size="small" className="css-c4ryva">
+                    <i
+                        data-name="bookmarkDeleted"
+                        data-size="medium"
+                        className="css-18g3p83"
+                    ></i>
+                </div>
+                <span
+                    data-size="small"
+                    data-text-size="medium"
+                    className="css-tzawzu"
+                >
+                    お気に入り
+                </span>
+            </button>
+        </div>
+    );
+};
+
 const AddToBasketComponent = (props: { contentId: string }) => {
     const [clicked, setClicked] = React.useState(false);
     const handleClick = () => {
@@ -60,22 +110,14 @@ const AddToBasketComponent = (props: { contentId: string }) => {
                 data-size="small"
                 data-checked="false"
                 data-disabled="false"
-                className="css-k7fmbg"
+                className={`css-k7fmbg ${clicked ? "clicked" : ""}`}
             >
                 <div data-size="small" className="css-c4ryva">
-                    {clicked ? (
-                        <i
-                            data-name="checkBasket"
-                            data-size="medium"
-                            className="css-vgxhf6"
-                        ></i>
-                    ) : (
-                        <i
-                            data-name="add"
-                            data-size="small"
-                            className="css-qu5ob0"
-                        ></i>
-                    )}
+                    <i
+                        data-name="add"
+                        data-size="small"
+                        className="css-qu5ob0"
+                    ></i>
                 </div>
                 <span
                     data-size="small"
@@ -253,6 +295,7 @@ export const BookComponnet = (props: Props) => {
                         </a>
                         <BuyComponent contentId={book.content_id} />
                         <AddToBasketComponent contentId={book.content_id} />
+                        <AddToFavoriteComponent contentId={book.content_id} />
                     </div>
                 )}
             </div>
