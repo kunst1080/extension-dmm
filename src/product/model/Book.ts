@@ -19,14 +19,7 @@ export type Book = {
   };
   sell: {
     campaign_detail: {
-      campaign: {
-        free: boolean;
-        point: {
-          begin: string;
-          end: string;
-          rate: number;
-        };
-      };
+      campaign: Campaign;
     };
     campaign_price: number;
     fixed_price: number;
@@ -42,4 +35,18 @@ export type Book = {
   tachiyomi_url: string;
   title: string;
   volume_number: number;
+};
+
+export type Campaign = {
+  free: boolean;
+  point: {
+    begin: string;
+    end: string;
+    rate: number;
+  };
+  sales: {
+    begin: string;
+    end: string;
+    rate: number;
+  };
 };

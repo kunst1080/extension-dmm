@@ -1,5 +1,6 @@
 .books-filter {
     font-size: 16px;
+    margin-top: 12px;
     margin-bottom: 12px;
 }
 .books-empty {
@@ -7,6 +8,7 @@
     font-weight: 800;
 }
 .book-title {
+    font-size: 18px;
     white-space: break-spaces;
 }
 .book-price {
@@ -14,8 +16,16 @@
     font-weight: 600;
     line-height: 1;
     color: rgb(51, 51, 51);
+    margin-right: 2px;
 }
-.book-pint {
+.book-campaign {
     font-size: 14px;
-    line-height: 1;
+    line-height: 1.2;
+}
+.correction {
+    font-weight: 400;
+    text-decoration: line-through;
+}
+.red_ {
+    color: rgb(246, 56, 74);
 }

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Book } from "../model/Book";
+import { Book, Campaign } from "../model/Book";
 
 type Props = {
     seriesId: string;
@@ -129,9 +129,50 @@ const BuyComponent = (props: { contentId: string }) => {
     );
 };
 
+const PriceComponent = (props: {
+    fixedPrice: number;
+    campaignPrice: number;
+}) => {
+    if (props.campaignPrice) {
+        return (
+            <div>
+                <span className="book-price correction">
+                    {props.fixedPrice}円
+                </span>
+                <span className="book-price red_">{props.campaignPrice}円</span>
+            </div>
+        );
+    } else {
+        return (
+            <div>
+                <span className="book-price">{props.fixedPrice}円</span>
+            </div>
+        );
+    }
+};
+
+const CampaignComponent = (props: { campaign: Campaign }) => {
+    return (
+        <div>
+            {props.campaign.sales && (
+                <div className="book-campaign red_">
+                    {props.campaign.sales.rate}% OFF (
+                    {new Date(props.campaign.sales.end).toLocaleString()}まで)
+                </div>
+            )}
+            {props.campaign.point && (
+                <div className="book-campaign red_">
+                    {props.campaign.point.rate}% pt還元 (
+                    {new Date(props.campaign.point.end).toLocaleString()}
+                    まで)
+                </div>
+            )}
+        </div>
+    );
+};
+
 export const BookComponnet = (props: Props) => {
     const book = props.book;
-    const point = book.sell.campaign_detail.campaign.point;
     return (
         <div
             data-is-read={book.is_read}
@@ -155,23 +196,19 @@ export const BookComponnet = (props: Props) => {
                             data-is-read={book.is_read}
                             data-is-limited="false"
                             href={`/product/${props.seriesId}/${book.content_id}/`}
-                            className="css-1bqwxmy"
+                            className="book-title"
                             target="_blank"
                         >
-                            <div className="book-title">{book.title}</div>
+                            <div>{book.title}</div>
                         </a>
                     </div>
-                    {point && (
-                        <div data-color="red" className="book-pint">
-                            {`pt還元: ${point.rate}%
-                            (${new Date(point.end).toLocaleString()}まで)`}
-                        </div>
-                    )}
-                    <div>
-                        <span className="book-price">
-                            {book.sell.fixed_price}円
-                        </span>
-                    </div>
+                    <CampaignComponent
+                        campaign={book.sell.campaign_detail.campaign}
+                    />
+                    <PriceComponent
+                        fixedPrice={book.sell.fixed_price}
+                        campaignPrice={book.sell.campaign_price}
+                    />
                 </div>
                 {book.purchased ? (
                     <div className="css-j5weua">
