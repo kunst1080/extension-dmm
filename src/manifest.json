@@ -37,6 +37,13 @@
       ],
       "js": ["search.js"],
       "css": ["search.css"]
+    },
+    {
+      "matches": [
+        "https://book.dmm.co.jp/thanks/*",
+        "https://book.dmm.com/thanks/*"
+      ],
+      "js": ["result.js"]
     }
   ],
   "permissions": ["storage"],

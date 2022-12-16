@@ -10,6 +10,7 @@ module.exports = {
     search: "./src/search/main.tsx",
     product: "./src/product/main.tsx",
     top: "./src/top/main.tsx",
+    result: "./src/result/main.ts",
   },
   module: {
     rules: [

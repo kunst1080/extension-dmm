@@ -25,15 +25,14 @@ const main = (root: HTMLElement) => {
     root.remove();
 
     const seriesId = location.pathname.split("/")[2];
-    loadData(seriesId, CACHE_EXPIRE_MILLIS, fetchData(seriesId)).then(
-        (json: SeriesJson) => {
-            app.className = "";
-            ReactDOM.render(
-                <MainComponent seriesId={seriesId} json={json} />,
-                app
-            );
-        }
-    );
+    loadData(
+        `product-${seriesId}`,
+        CACHE_EXPIRE_MILLIS,
+        fetchData(seriesId)
+    ).then((json: SeriesJson) => {
+        app.className = "";
+        ReactDOM.render(<MainComponent seriesId={seriesId} json={json} />, app);
+    });
 };
 
 if (location.pathname.split("/")[3] !== "volumes") {
