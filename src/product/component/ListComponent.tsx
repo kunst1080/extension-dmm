@@ -4,6 +4,7 @@ import { SeriesJson } from "../model/SeriesJson";
 import { BookComponnet } from "./BookComponent";
 
 type Props = {
+    shopName: string;
     seriesId: string;
     json: SeriesJson;
     hidePurchased: boolean;
@@ -21,7 +22,11 @@ export const ListComponent = (props: Props) => {
             <ul>
                 {hiddenCount > 0 && <div>{hiddenCount}冊 非表示中</div>}
                 {filteredBooks.map((book) => (
-                    <BookComponnet seriesId={props.seriesId} book={book} />
+                    <BookComponnet
+                        shopName={props.shopName}
+                        seriesId={props.seriesId}
+                        book={book}
+                    />
                 ))}
             </ul>
         );

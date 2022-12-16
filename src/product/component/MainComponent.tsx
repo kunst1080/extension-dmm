@@ -6,6 +6,7 @@ import { FilterComponent } from "./FilterComponent";
 import { ListComponent } from "./ListComponent";
 
 type Props = {
+    shopName: string;
     seriesId: string;
     json: SeriesJson;
 };
@@ -21,6 +22,7 @@ export const MainComponent = (props: Props) => {
                 購入済み非表示
             </FilterComponent>
             <ListComponent
+                shopName={props.shopName}
                 seriesId={props.seriesId}
                 json={props.json}
                 hidePurchased={hidePurchased}

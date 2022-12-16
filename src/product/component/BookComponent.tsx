@@ -2,6 +2,7 @@ import * as React from "react";
 import { Book, Campaign } from "../model/Book";
 
 type Props = {
+    shopName: string;
     seriesId: string;
     book: Book;
 };
@@ -33,14 +34,15 @@ const badgeNew = (
     </div>
 );
 
-const AddToFavoriteComponent = (props: { contentId: string }) => {
-    const shopName = location.hostname == "book.dmm.com" ? "general" : "adult";
-
+const AddToFavoriteComponent = (props: {
+    shopName: string;
+    contentId: string;
+}) => {
     const [clicked, setClicked] = React.useState(false);
     const handleClick = () => {
         const data = {
             item_id: props.contentId,
-            shop_name: shopName,
+            shop_name: props.shopName,
         };
         if (clicked) {
             location.href = "/bookmark/";
@@ -296,6 +298,7 @@ export const BookComponnet = (props: Props) => {
                             data-size="small"
                             rel="nofollow"
                             className="css-yrc6gc"
+                            target="_blank"
                         >
                             <span
                                 data-theme="normal"
@@ -307,7 +310,10 @@ export const BookComponnet = (props: Props) => {
                         </a>
                         <BuyComponent contentId={book.content_id} />
                         <AddToBasketComponent contentId={book.content_id} />
-                        <AddToFavoriteComponent contentId={book.content_id} />
+                        <AddToFavoriteComponent
+                            shopName={props.shopName}
+                            contentId={book.content_id}
+                        />
                     </div>
                 )}
             </div>

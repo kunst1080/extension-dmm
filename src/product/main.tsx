@@ -8,9 +8,11 @@ import { SeriesJson } from "./model/SeriesJson";
 
 const CACHE_EXPIRE_MILLIS = 60 * 60 * 24 * 1 * 1000; // 1 day
 
+const shopName = location.hostname == "book.dmm.com" ? "general" : "adult";
+
 const fetchData = async (seriesId: string) => {
     const r = await fetch(
-        `/ajax/bff/contents/?shop_name=general&series_id=${seriesId}&page=1&per_page=100&last_read_position=0&order=asc`
+        `/ajax/bff/contents/?shop_name=${shopName}&series_id=${seriesId}&page=1&per_page=100&last_read_position=0&order=asc`
     );
     const s = await r.json();
     console.debug(s);
@@ -31,7 +33,15 @@ const main = (root: HTMLElement) => {
         fetchData(seriesId)
     ).then((json: SeriesJson) => {
         app.className = "";
-        ReactDOM.render(<MainComponent seriesId={seriesId} json={json} />, app);
+        console.log(json);
+        ReactDOM.render(
+            <MainComponent
+                shopName={shopName}
+                seriesId={seriesId}
+                json={json}
+            />,
+            app
+        );
     });
 };
 
