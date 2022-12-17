@@ -3,7 +3,9 @@ import * as ReactDOM from "react-dom";
 
 import { FilterComponent } from "./FilterComponent";
 
-const allItems = document.querySelectorAll<HTMLElement>("#fn-list > li");
+const allItems = document.querySelectorAll<HTMLElement>(
+    "li.m-boxListBookProduct2__item"
+);
 
 // Filter
 const handleFilter =
@@ -11,7 +13,7 @@ const handleFilter =
         allItems.forEach((li) => {
             const title =
                 li
-                    .querySelector(".m-boxListBookProductTmb img")
+                    .querySelector(".m-boxListBookProductTmbImg__box__img__tmb")
                     ?.getAttribute("alt") || "";
             if (checked && keywords.some((k) => title.includes(k))) {
                 li.classList.add(className);
