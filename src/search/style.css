@@ -5,6 +5,7 @@
     width: 100% !important;
 }
 .filter-tanwa,
-.filter-gentei {
+.filter-gentei,
+.filter-magazine {
     background-color: grey;
 }

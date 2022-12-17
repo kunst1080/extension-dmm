@@ -40,6 +40,12 @@ ReactDOM.render(
         >
             限定をマスク
         </FilterComponent>
+        <FilterComponent
+            defaultValue={true}
+            onUpdate={handleFilter(["vol."], "filter-magazine")}
+        >
+            雑誌をマスク
+        </FilterComponent>
     </div>,
     app
 );
