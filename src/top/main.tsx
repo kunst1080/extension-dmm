@@ -7,7 +7,10 @@ const click = (e: HTMLElement | null) => {
     }
 };
 
-const sectionCallback = (section: HTMLElement, label: string) => {
+const sleep = (waitTime: number) =>
+    new Promise((resolve) => setTimeout(resolve, waitTime));
+
+const sectionCallback = async (section: HTMLElement, label: string) => {
     const ul = section.querySelector<HTMLElement>("ul[data-is-wide]");
     if (ul) {
         const prevButton =
@@ -15,10 +18,16 @@ const sectionCallback = (section: HTMLElement, label: string) => {
         const nextButton =
             section.querySelector<HTMLElement>("[data-type=next]");
         const arr = [];
-        do {
+        for (let i = 0; i < 10; i++) {
+            await sleep(500);
+            console.log("next");
             const liHtml = ul.innerHTML;
             arr.push(liHtml);
-        } while (!nextButton?.hasAttribute("data-hidden") && click(nextButton));
+            if (nextButton?.hasAttribute("data-hidden")) {
+                break;
+            }
+            click(nextButton);
+        }
         ul.innerHTML = arr.join("");
         ul.querySelectorAll<HTMLElement>("span.indicator").forEach((e) =>
             e.remove()
