@@ -51,9 +51,7 @@ const superStyle: CSSProperties = {
 export const CashbackDetailComponent = (props: Book) => {
     const [data, setData] = React.useState<CashbackDetail | null>(null);
     React.useEffect(() => {
-        loadData(
-            `bookmark-${props.id}`,
-            CACHE_EXPIRE_MILLIS,
+        loadData(`bookmark-${props.id}`, CACHE_EXPIRE_MILLIS, () =>
             fetchData(props.apiUrl)
         ).then((d) => setData(d));
     }, []);

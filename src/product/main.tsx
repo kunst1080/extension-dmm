@@ -27,9 +27,7 @@ const main = (root: HTMLElement) => {
     root.remove();
 
     const seriesId = location.pathname.split("/")[2];
-    loadData(
-        `product-${seriesId}`,
-        CACHE_EXPIRE_MILLIS,
+    loadData(`product-${seriesId}`, CACHE_EXPIRE_MILLIS, () =>
         fetchData(seriesId)
     ).then((json: SeriesJson) => {
         app.className = "";
