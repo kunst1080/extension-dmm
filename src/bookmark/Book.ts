@@ -13,6 +13,7 @@ export type Book = {
   canDownload: boolean;
   price: number;
   txtOff?: string;
+  rate?: number;
 };
 
 export const nodeToBook = (e: Element): Book => {

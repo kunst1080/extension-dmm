@@ -48,12 +48,18 @@ const superStyle: CSSProperties = {
     color: "#fff",
 };
 
-export const CashbackDetailComponent = (props: Book) => {
+export const CashbackDetailComponent = (props: {
+    book: Book;
+    onRateLoaded: (rate: number) => void;
+}) => {
     const [data, setData] = React.useState<CashbackDetail | null>(null);
     React.useEffect(() => {
-        loadData(`bookmark-${props.id}`, CACHE_EXPIRE_MILLIS, () =>
-            fetchData(props.apiUrl)
-        ).then((d) => setData(d));
+        loadData(`bookmark-${props.book.id}`, CACHE_EXPIRE_MILLIS, () =>
+            fetchData(props.book.apiUrl)
+        ).then((d) => {
+            setData(d);
+            props.onRateLoaded(d.rate);
+        });
     }, []);
     if (data == null) return <div>Loading...</div>;
     return (

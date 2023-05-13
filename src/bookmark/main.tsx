@@ -16,7 +16,8 @@ const handleFilter = (filter: Filter) => {
         const isShow =
             b.title.includes(filter.title) &&
             (!filter.discount || b.txtOff != null) &&
-            (!filter.cachback || b.isCashback);
+            (!filter.cachback || b.isCashback) &&
+            (!filter.cachback2 || (b.isCashback && b.rate && b.rate >= 50));
         b.ref.hidden = !isShow;
     });
 };
@@ -33,5 +34,11 @@ allItems
     .forEach((b) => {
         const app = document.createElement("div");
         b.ref.firstElementChild?.appendChild(app);
-        ReactDOM.render(<CashbackDetailComponent {...b} />, app);
+        const onRateLoaded = (rate: number) => {
+            b.rate = rate;
+        };
+        ReactDOM.render(
+            <CashbackDetailComponent onRateLoaded={onRateLoaded} book={b} />,
+            app
+        );
     });
