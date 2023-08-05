@@ -48,26 +48,20 @@ const superStyle: CSSProperties = {
     color: "#fff",
 };
 
-export const CashbackDetailComponent = (props: {
-    book: Book;
-    onRateLoaded: (rate: number) => void;
-}) => {
-    const [data, setData] = React.useState<CashbackDetail | null>(null);
+export const CashbackDetailComponent = (props: { book: Book }) => {
+    const [detail, setDetail] = React.useState<CashbackDetail | null>(null);
     React.useEffect(() => {
         loadData(`bookmark-${props.book.id}`, CACHE_EXPIRE_MILLIS, () =>
             fetchData(props.book.apiUrl)
-        ).then((d) => {
-            setData(d);
-            props.onRateLoaded(d.rate);
-        });
+        ).then((d) => setDetail(d));
     }, []);
-    if (data == null) return <div>Loading...</div>;
+    if (detail == null) return <div>Loading...</div>;
     return (
         <div>
-            <div style={data.rate >= 50 ? superStyle : normalStyle}>
-                {data.rate} %還元
+            <div style={detail.rate >= 50 ? superStyle : normalStyle}>
+                {detail.rate} %還元
             </div>
-            <div style={{ fontSize: "12px" }}>{data.point} ポイント付与</div>
+            <div style={{ fontSize: "12px" }}>{detail.point} ポイント付与</div>
         </div>
     );
 };

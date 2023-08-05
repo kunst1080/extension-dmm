@@ -34,11 +34,5 @@ allItems
     .forEach((b) => {
         const app = document.createElement("div");
         b.ref.firstElementChild?.appendChild(app);
-        const onRateLoaded = (rate: number) => {
-            b.rate = rate;
-        };
-        ReactDOM.render(
-            <CashbackDetailComponent onRateLoaded={onRateLoaded} book={b} />,
-            app
-        );
+        ReactDOM.render(<CashbackDetailComponent book={b} />, app);
     });
