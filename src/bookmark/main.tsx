@@ -49,9 +49,23 @@ const initializeCacheDetail = (books: Book[]) => {
         });
 };
 
+// Clear Cache
+const initializeClearCache = () => {
+    const handleClick = () => {
+        chrome.storage.local.clear();
+        alert("clear cache");
+    };
+    const app = document.createElement("button");
+    app.textContent = "キャッシュクリア";
+    app.className = "clear-button";
+    app.addEventListener("click", handleClick);
+    document.querySelector("#main-bmk > div.d-area > div > div")?.prepend(app);
+};
+
 // main
 const allItems = Array.from(document.querySelectorAll("ul#list > li")).map(
     nodeToBook
 );
 initializeFilter(allItems);
 initializeCacheDetail(allItems);
+initializeClearCache();
