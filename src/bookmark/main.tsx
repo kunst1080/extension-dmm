@@ -5,6 +5,8 @@ import { Book, nodeToBook } from "./model/Book";
 
 import { CashbackDetailComponent } from "./component/CashbackDetailComponent";
 import { Filter, FilterComponnet } from "./component/FilterComponent";
+import { loadData } from "../utils";
+import { CashbackDetail, fetchCashbackDetail } from "./model/CashbackDetail";
 
 // Filter
 const initializeFilter = (books: Book[]) => {
@@ -28,12 +30,21 @@ const initializeFilter = (books: Book[]) => {
 
 // CashbackDetail
 const initializeCacheDetila = (books: Book[]) => {
+    const CACHE_EXPIRE_MILLIS = 60 * 60 * 24 * 7 * 1000; // 1 week
+    const loadCachebackDetail = (book: Book): Promise<CashbackDetail> =>
+        loadData(`bookmark-${book.id}`, CACHE_EXPIRE_MILLIS, () =>
+            fetchCashbackDetail(book.apiUrl)
+        );
     books
         .filter((b) => b.isCashback)
-        .forEach((b) => {
+        .forEach(async (b) => {
             const app = document.createElement("div");
             b.ref.firstElementChild?.appendChild(app);
-            ReactDOM.render(<CashbackDetailComponent book={b} />, app);
+            const detail = await loadCachebackDetail(b);
+            ReactDOM.render(
+                <CashbackDetailComponent book={b} detail={detail} />,
+                app
+            );
         });
 };
 

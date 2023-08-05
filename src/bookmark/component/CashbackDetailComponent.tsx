@@ -1,34 +1,8 @@
 import * as React from "react";
-
-import { xfetch, loadData } from "../../utils";
-
-import { Book } from "../Book";
 import { CSSProperties } from "react";
 
-const CACHE_EXPIRE_MILLIS = 60 * 60 * 24 * 7 * 1000; // 1 week
-
-type CashbackDetail = {
-    point: number;
-    rate: number;
-    createdAt: number;
-};
-
-const fetchData = async (url: string): Promise<CashbackDetail> => {
-    const body = await xfetch(url);
-    const json = JSON.parse(body);
-    const price = json.sell.campaign_price
-        ? json.sell.campaign_price
-        : json.sell.fixed_price;
-    const rate = json.sell.campaign_detail.campaign.point.rate;
-    const noTax = Math.trunc((price * 100) / 11 / 10);
-    const point = Math.trunc((noTax * rate) / 100);
-    const cd = {
-        point: point,
-        rate: rate,
-        createdAt: Date.now(),
-    };
-    return cd;
-};
+import { Book } from "../model/Book";
+import { CashbackDetail } from "../model/CashbackDetail";
 
 const normalStyle: CSSProperties = {
     fontSize: "12px",
@@ -48,20 +22,19 @@ const superStyle: CSSProperties = {
     color: "#fff",
 };
 
-export const CashbackDetailComponent = (props: { book: Book }) => {
-    const [detail, setDetail] = React.useState<CashbackDetail | null>(null);
-    React.useEffect(() => {
-        loadData(`bookmark-${props.book.id}`, CACHE_EXPIRE_MILLIS, () =>
-            fetchData(props.book.apiUrl)
-        ).then((d) => setDetail(d));
-    }, []);
-    if (detail == null) return <div>Loading...</div>;
+export const CashbackDetailComponent = (props: {
+    book: Book;
+    detail: CashbackDetail;
+}) => {
+    if (props.detail == null) return <div>Loading...</div>;
     return (
         <div>
-            <div style={detail.rate >= 50 ? superStyle : normalStyle}>
-                {detail.rate} %還元
+            <div style={props.detail.rate >= 50 ? superStyle : normalStyle}>
+                {props.detail.rate} %還元
             </div>
-            <div style={{ fontSize: "12px" }}>{detail.point} ポイント付与</div>
+            <div style={{ fontSize: "12px" }}>
+                {props.detail.point} ポイント付与
+            </div>
         </div>
     );
 };
