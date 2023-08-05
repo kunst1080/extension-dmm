@@ -29,7 +29,7 @@ const initializeFilter = (books: Book[]) => {
 };
 
 // CashbackDetail
-const initializeCacheDetila = (books: Book[]) => {
+const initializeCacheDetail = (books: Book[]) => {
     const CACHE_EXPIRE_MILLIS = 60 * 60 * 24 * 7 * 1000; // 1 week
     const loadCachebackDetail = (book: Book): Promise<CashbackDetail> =>
         loadData(`bookmark-${book.id}`, CACHE_EXPIRE_MILLIS, () =>
@@ -53,4 +53,4 @@ const allItems = Array.from(document.querySelectorAll("ul#list > li")).map(
     nodeToBook
 );
 initializeFilter(allItems);
-initializeCacheDetila(allItems);
+initializeCacheDetail(allItems);
