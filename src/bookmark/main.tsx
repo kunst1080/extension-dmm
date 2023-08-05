@@ -41,6 +41,7 @@ const initializeCacheDetail = (books: Book[]) => {
             const app = document.createElement("div");
             b.ref.firstElementChild?.appendChild(app);
             const detail = await loadCachebackDetail(b);
+            b.rate = detail.rate;
             ReactDOM.render(
                 <CashbackDetailComponent book={b} detail={detail} />,
                 app
