@@ -133,46 +133,6 @@ const AddToBasketComponent = (props: { contentId: string }) => {
     );
 };
 
-const BuyComponent = (props: { contentId: string }) => {
-    const handleClick = () => {
-        const data = {
-            product_ids: [props.contentId],
-            back_url: location.href,
-        };
-        fetch("/ajax/purchase/", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json; charset=utf-8",
-                "x-requested-with": "XMLHttpRequest",
-            },
-            body: JSON.stringify(data),
-        })
-            .then((r) => r.json())
-            .then((r) => {
-                location.href = r.cashier_url;
-            });
-    };
-    return (
-        <div className="css-133zdp5">
-            <button
-                onClick={handleClick}
-                data-size="small"
-                data-theme="orange"
-                data-disabled="false"
-                className="css-1jqjoin"
-            >
-                <span
-                    data-size="small"
-                    data-theme="orange"
-                    className="css-19lo0zs"
-                >
-                    購入する
-                </span>
-            </button>
-        </div>
-    );
-};
-
 const PriceComponent = (props: {
     fixedPrice: number;
     campaignPrice: number;
@@ -297,7 +257,7 @@ export const BookComponnet = (props: Props) => {
                             data-theme="normal"
                             data-size="small"
                             rel="nofollow"
-                            className="css-yrc6gc"
+                            className="css-1e6qv8l"
                             target="_blank"
                         >
                             <span
@@ -308,7 +268,6 @@ export const BookComponnet = (props: Props) => {
                                 試し読み
                             </span>
                         </a>
-                        <BuyComponent contentId={book.content_id} />
                         <AddToBasketComponent contentId={book.content_id} />
                         <AddToFavoriteComponent
                             shopName={props.shopName}

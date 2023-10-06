@@ -44,28 +44,12 @@ const main = (root: HTMLElement) => {
 };
 
 if (location.pathname.split("/")[3] !== "volumes") {
-    const appObserver = new MutationObserver((mutationsList, observer) => {
-        mutationsList
-            .filter((m) => m.target.nodeName == "MAIN")
-            .filter((m) => m.addedNodes.length > 0)
-            .flatMap((m) => {
-                const arr: Array<HTMLElement> = [];
-                m.addedNodes
-                    .item(0)
-                    ?.childNodes.forEach((n) => arr.push(n as HTMLElement));
-                return arr;
-            })
-            .filter(
-                (n) =>
-                    n.nodeName == "UL" &&
-                    n.classList.length == 0 &&
-                    !n.nextSibling?.textContent?.includes("期間限定")
-            )
-            .forEach(main);
-    });
-    appObserver.observe(document.getElementById("root") as Node, {
-        attributes: false,
-        childList: true,
-        subtree: true,
-    });
+    document.body.onload = (e) => {
+        setTimeout(() => {
+            const root = document.querySelector(
+                "#root main > div:last-child > div > div:nth-child(4) > ul"
+            );
+            main(root as HTMLElement);
+        }, 500);
+    };
 }
