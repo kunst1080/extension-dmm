@@ -16,7 +16,7 @@ const initializeFilter = (books: Book[]) => {
                 b.title.includes(filter.title) &&
                 (!filter.discount || b.txtOff != null) &&
                 (!filter.cachback || b.isCashback) &&
-                (!filter.cachback2 || (b.isCashback && b.rate && b.rate >= 50));
+                (!filter.cachback2 || b.isSuperCashback);
             b.ref.hidden = !isShow;
         });
     };
@@ -41,11 +41,9 @@ const initializeCacheDetail = (books: Book[]) => {
             const app = document.createElement("div");
             b.ref.firstElementChild?.appendChild(app);
             const detail = await loadCachebackDetail(b);
-            b.rate = detail.rate;
-            ReactDOM.render(
-                <CashbackDetailComponent book={b} detail={detail} />,
-                app
-            );
+            b.detail = detail;
+            b.isSuperCashback = detail.rate >= 49;
+            ReactDOM.render(<CashbackDetailComponent book={b} />, app);
         });
 };
 

@@ -1,3 +1,5 @@
+import { CashbackDetail } from "./CashbackDetail";
+
 export type Book = {
   ref: HTMLElement;
   id: string;
@@ -13,7 +15,8 @@ export type Book = {
   canDownload: boolean;
   price: number;
   txtOff?: string;
-  rate?: number;
+  detail?: CashbackDetail;
+  isSuperCashback?: boolean;
 };
 
 export const nodeToBook = (e: Element): Book => {

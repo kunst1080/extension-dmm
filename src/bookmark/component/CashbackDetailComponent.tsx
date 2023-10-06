@@ -22,18 +22,15 @@ const superStyle: CSSProperties = {
     color: "#fff",
 };
 
-export const CashbackDetailComponent = (props: {
-    book: Book;
-    detail: CashbackDetail;
-}) => {
-    if (props.detail == null) return <div>Loading...</div>;
+export const CashbackDetailComponent = (props: { book: Book }) => {
+    if (props.book.detail == null) return <div>Loading...</div>;
     return (
         <div>
-            <div style={props.detail.rate >= 50 ? superStyle : normalStyle}>
-                {props.detail.rate} %還元
+            <div style={props.book.isSuperCashback ? superStyle : normalStyle}>
+                {props.book.detail.rate} %還元
             </div>
             <div style={{ fontSize: "12px" }}>
-                {props.detail.point} ポイント付与
+                {props.book.detail.point} ポイント付与
             </div>
         </div>
     );
