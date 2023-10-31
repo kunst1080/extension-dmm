@@ -20,9 +20,10 @@ export type Book = {
 };
 
 export const nodeToBook = (e: Element): Book => {
-  const href = (e.querySelector("p.tmb > a") as HTMLAnchorElement).href;
+  const href = (e.querySelector("div.tmb > a") as HTMLAnchorElement).href;
   const url = new URL(href).searchParams.get("url") || href;
-  const imageUrl = (e.querySelector(".img > img") as HTMLImageElement).src;
+  const imgEl = e.querySelector("img.m-bookImage__img") as HTMLImageElement;
+  const imageUrl = imgEl.src;
   const id = imageUrl.split("/")[5];
   const shopName =
     new URL(url).hostname == "book.dmm.com" ? "general" : "adult";
@@ -35,7 +36,7 @@ export const nodeToBook = (e: Element): Book => {
     url: url,
     imageUrl: imageUrl,
     apiUrl: apiUrl,
-    title: (e.querySelector(".img > img") as HTMLImageElement).alt,
+    title: imgEl.alt,
     shortTitle: (e.getElementsByClassName("txt")[0] as HTMLElement).innerText,
     isCashback: e.getElementsByClassName("ico-st-cashback").length > 0,
     isMonopoly: e.getElementsByClassName("ico-st-monopoly").length > 0,
