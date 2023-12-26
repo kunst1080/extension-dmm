@@ -45,7 +45,7 @@ export const nodeToBook = (e: Element): Book => {
     canDownload: e.getElementsByClassName("ico-dg-dl").length > 0,
     price: parseInt(
       (
-        e.querySelector("p.price > span:nth-child(2)") as HTMLElement
+        e.querySelector("p.price > span.price__val") as HTMLElement
       ).innerText.replace(",", "")
     ),
     txtOff: (e.getElementsByClassName("txtoff").item(0) as HTMLElement | null)

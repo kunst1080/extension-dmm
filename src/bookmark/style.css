@@ -1,6 +1,9 @@
 #w {
     width: 100% !important;
 }
+#main-bmk {
+    width: 100% !important;
+}
 .clear-button {
     position: absolute;
     left: 400px;
