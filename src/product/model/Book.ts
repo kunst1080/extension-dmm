@@ -18,10 +18,10 @@ export type Book = {
     streaming_url: string;
   };
   sell: {
-    campaign_detail: {
+    campaign_detail?: {
       campaign: Campaign;
     };
-    campaign_price: number;
+    campaign_price?: number;
     fixed_price: number;
     free_status: "paid";
   };

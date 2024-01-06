@@ -135,7 +135,7 @@ const AddToBasketComponent = (props: { contentId: string }) => {
 
 const PriceComponent = (props: {
     fixedPrice: number;
-    campaignPrice: number;
+    campaignPrice?: number;
 }) => {
     if (props.campaignPrice) {
         return (
@@ -156,25 +156,25 @@ const PriceComponent = (props: {
 };
 
 const CampaignComponent = (props: {
-    campaign: Campaign;
+    campaign?: Campaign;
     fixedPrice: number;
-    campaignPrice: number;
+    campaignPrice?: number;
 }) => {
     const price = props.campaignPrice ? props.campaignPrice : props.fixedPrice;
-    const point = props.campaign.point
+    const point = props.campaign?.point.rate
         ? Math.trunc(
               (((price * 100) / 11 / 10) * props.campaign.point.rate) / 100
           )
         : 0;
     return (
         <div>
-            {props.campaign.sales && (
+            {props.campaign?.sales && (
                 <div className="book-campaign red_">
                     {props.campaign.sales.rate}% OFF (
                     {new Date(props.campaign.sales.end).toLocaleString()}まで)
                 </div>
             )}
-            {props.campaign.point && (
+            {props.campaign?.point && (
                 <div className="book-campaign red_">
                     {props.campaign.point.rate}% ({point}) pt 還元 (
                     {new Date(props.campaign.point.end).toLocaleString()}
@@ -217,7 +217,7 @@ export const BookComponnet = (props: Props) => {
                         </a>
                     </div>
                     <CampaignComponent
-                        campaign={book.sell.campaign_detail.campaign}
+                        campaign={book.sell.campaign_detail?.campaign}
                         fixedPrice={book.sell.fixed_price}
                         campaignPrice={book.sell.campaign_price}
                     />
