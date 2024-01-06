@@ -14,7 +14,7 @@ const initializeFilter = (books: Book[]) => {
         books.forEach((b) => {
             const isShow =
                 b.title.includes(filter.title) &&
-                (!filter.discount || b.txtOff != null) &&
+                (!filter.discount || b.isDiscount) &&
                 (!filter.cachback || b.isCashback) &&
                 (!filter.cachback2 || b.isSuperCashback);
             b.ref.hidden = !isShow;

@@ -14,7 +14,7 @@ export type Book = {
   canBrowser: boolean;
   canDownload: boolean;
   price: number;
-  txtOff?: string;
+  isDiscount: boolean;
   detail?: CashbackDetail;
   isSuperCashback?: boolean;
 };
@@ -30,6 +30,10 @@ export const nodeToBook = (e: Element): Book => {
   const apiUrl = `${
     new URL(url).origin
   }/ajax/bff/content/?shop_name=${shopName}&content_id=${id}`;
+  const txtOff = e.querySelector<HTMLElement>(
+    ".bookmarkItem__campaign"
+  )?.innerText;
+  const isDiscount = txtOff && txtOff.includes("OFF") ? true : false;
   return {
     ref: e as HTMLElement,
     id: id,
@@ -48,7 +52,6 @@ export const nodeToBook = (e: Element): Book => {
         e.querySelector("p.price > span.price__val") as HTMLElement
       ).innerText.replace(",", "")
     ),
-    txtOff: (e.getElementsByClassName("txtoff").item(0) as HTMLElement | null)
-      ?.innerText,
+    isDiscount: isDiscount,
   };
 };
