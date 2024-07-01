@@ -8,6 +8,14 @@ import { Filter, FilterComponnet } from "./component/FilterComponent";
 import { loadData } from "../utils";
 import { CashbackDetail, fetchCashbackDetail } from "./model/CashbackDetail";
 
+const root = document.querySelector<HTMLElement>("div.m-favoriteLink");
+if (!root) {
+    throw new Error("root not found");
+}
+root.innerHTML = "";
+root.classList.add("d-boxcaptside");
+root.classList.add("d-boxpagenation");
+
 // Filter
 const initializeFilter = (books: Book[]) => {
     const handleFilter = (filter: Filter) => {
@@ -22,9 +30,7 @@ const initializeFilter = (books: Book[]) => {
     };
     const filterApp = document.createElement("div");
     filterApp.className = "d-lcol";
-    document
-        .querySelector("#main-bmk > div.d-area > div > div:last-of-type")
-        ?.prepend(filterApp);
+    root.appendChild(filterApp);
     ReactDOM.render(<FilterComponnet onUpdate={handleFilter} />, filterApp);
 };
 
@@ -57,7 +63,7 @@ const initializeClearCache = () => {
     app.textContent = "キャッシュクリア";
     app.className = "clear-button";
     app.addEventListener("click", handleClick);
-    document.querySelector("#main-bmk > div.d-area > div > div")?.prepend(app);
+    root.appendChild(app);
 };
 
 // main
