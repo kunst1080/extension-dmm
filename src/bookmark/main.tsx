@@ -48,7 +48,7 @@ const initializeCacheDetail = (books: Book[]) => {
             b.ref.firstElementChild?.appendChild(app);
             const detail = await loadCachebackDetail(b);
             b.detail = detail;
-            b.isSuperCashback = detail.rate >= 46;
+            b.isSuperCashback = detail.rate >= 45;
             ReactDOM.render(<CashbackDetailComponent book={b} />, app);
         });
 };
