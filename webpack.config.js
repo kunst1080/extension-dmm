@@ -6,7 +6,6 @@ module.exports = {
     extensions: [".js", ".ts", ".tsx"],
   },
   entry: {
-    background: "./src/background.ts",
     bookmark: "./src/bookmark/main.tsx",
     search: "./src/search/main.tsx",
     product: "./src/product/main.tsx",

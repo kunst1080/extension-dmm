@@ -1,5 +1,3 @@
-import { CashbackDetail } from "./CashbackDetail";
-
 export type Book = {
   ref: HTMLElement;
   id: string;
@@ -15,9 +13,13 @@ export type Book = {
   canDownload: boolean;
   price: number;
   isDiscount: boolean;
-  detail?: CashbackDetail;
-  isSuperCashback?: boolean;
+  pointRate: number;
+  isSuperCashback: boolean;
 };
+
+function getText(e: Element, selector: string): string {
+  return e.querySelector<HTMLElement>(selector)?.innerText || "";
+}
 
 export const nodeToBook = (e: Element): Book => {
   const href = (e.querySelector("div.tmb > a") as HTMLAnchorElement).href;
@@ -30,10 +32,13 @@ export const nodeToBook = (e: Element): Book => {
   const apiUrl = `${
     new URL(url).origin
   }/ajax/bff/content/?shop_name=${shopName}&content_id=${id}`;
-  const txtOff = e.querySelector<HTMLElement>(
-    ".bookmarkItem__campaign"
-  )?.innerText;
-  const isDiscount = txtOff && txtOff.includes("OFF") ? true : false;
+  const isDiscount = getText(e, ".price__val--emphasis") != "";
+  const txtCampaign = getText(e, ".bookmarkItem__campaign");
+  const pointRate = parseInt(txtCampaign.replace("%pt還元", ""));
+  const isSuperCashback = pointRate >= 45;
+  if (isSuperCashback) {
+    e.classList.add("super-cashback");
+  }
   return {
     ref: e as HTMLElement,
     id: id,
@@ -41,17 +46,15 @@ export const nodeToBook = (e: Element): Book => {
     imageUrl: imageUrl,
     apiUrl: apiUrl,
     title: imgEl.alt,
-    shortTitle: (e.getElementsByClassName("txt")[0] as HTMLElement).innerText,
+    shortTitle: getText(e, "txt"),
     isCashback: e.getElementsByClassName("ico-st-cashback").length > 0,
     isMonopoly: e.getElementsByClassName("ico-st-monopoly").length > 0,
     isPresale: e.getElementsByClassName("ico-st-presale").length > 0,
     canBrowser: e.getElementsByClassName("ico-dg-st").length > 0,
     canDownload: e.getElementsByClassName("ico-dg-dl").length > 0,
-    price: parseInt(
-      (
-        e.querySelector("p.price > span.price__val") as HTMLElement
-      ).innerText.replace(",", "")
-    ),
+    price: parseInt(getText(e, "p.price > span.price__val").replace(",", "")),
+    pointRate: pointRate,
+    isSuperCashback: isSuperCashback,
     isDiscount: isDiscount,
   };
 };

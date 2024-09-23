@@ -4,8 +4,18 @@
 #main-bmk {
     width: 100% !important;
 }
-.clear-button {
-    float: right;
-    margin-top: -24px !important;
-    margin-right: 10px !important;
+.bookmarkItem__campaign {
+    font-size: 12px;
+    border: 1px solid #d90000;
+    border-radius: 4px;
+    box-sizing: border-box;
+    padding: 4px 0;
+    font-weight: bold;
+    color: #d90000;
+    text-align: center;
+    margin: 4px 0;
+}
+.super-cashback .bookmarkItem__campaign {
+    background-color: #d90000;
+    color: #fff;
 }
